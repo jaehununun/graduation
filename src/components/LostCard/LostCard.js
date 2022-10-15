@@ -3,10 +3,20 @@ import { theme } from "../../styles/theme"
 import view_logo from './view_img.svg'
 import comment_logo from './comment_img.svg'
 import delete_logo from './delete_img.svg'
+import { useNavigate } from "react-router-dom"
+import { useCallback } from "react"
 
 export const LostCard = ({content}) => {
+    const navigate = useNavigate()
+
+    const handleClick = useCallback(() => {
+        navigate(`/post/${content?.id}`, {state: {
+            id: content?.id
+        }})
+    }, [content?.id, navigate])
+    
     return (
-        <Container>
+        <Container onClick={handleClick}>
             <Image src={content?.src} />
             <Title>{content?.title}</Title>
             <Location>{content?.location}</Location>

@@ -24,9 +24,13 @@ export const Header = () => {
         setUser(null)
     }, [setToken, setUser])
 
+    const handleClick = useCallback(() => {
+        navigate('/')
+    }, [navigate])
+
     return (
         <Container>
-            <img src={logo} alt='' style={{margin: '20px', cursor:'pointer', height: '50px'}}/>
+            <img src={logo} alt='' style={{margin: '20px', cursor:'pointer', height: '50px'}} onClick={handleClick}/>
             <UserContainer>
                 <img src={user_logo} alt=''/>
                 <UserInfo onClick={handleLogout}>{user?.name}님 환영합니다.</UserInfo>

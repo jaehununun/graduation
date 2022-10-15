@@ -1,15 +1,22 @@
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import { theme } from "../../styles/theme"
 
 export const Nav = () => {
     const location = window.location.pathname;
+    const navigate = useNavigate()
+
+    const handleClick = useCallback((path) => {
+        navigate(path)
+    }, [navigate])
 
     return (
         <Container>
             <ButtonBox>
-                <Button location={location === '/'}>게시글</Button>
-                <Button location={location === '/register'}>분실물 접수</Button>
-                <Button location={location === '/found'}>분실물 찾기</Button>
+                <Button location={location === '/'} onClick={() => handleClick('/')}>게시글</Button>
+                <Button onClick={() => handleClick('/')} location={location === '/register'}>분실물 접수</Button>
+                <Button onClick={() => handleClick('/')} location={location === '/found'}>분실물 찾기</Button>
             </ButtonBox>
         </Container>
     )
