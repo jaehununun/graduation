@@ -2,12 +2,13 @@ import { useRef } from "react"
 import styled from "styled-components"
 import { theme } from "../../styles/theme"
 
-export const TextField = ({label, value, onChange, placeholder, name, type}) => {
+export const TextField = ({label, value, onChange, placeholder, name, type, error}) => {
     const ref = useRef(null)
     return (
         <Container>
             <InputBox ref={ref} value={value} onChange={(e) => onChange(e)} required placeholder={placeholder} name={name} type={type ? type : 'text'}/>
             <InputTitle onClick={() => ref.current.focus()}>{label}</InputTitle>
+            {error && <Warnning>{error}</Warnning>}
         </Container>
     )
 }
@@ -54,4 +55,10 @@ const InputBox = styled.input`
     &:focus::placeholder {
         color: gray;
     }
+`
+
+const Warnning = styled.div`
+    color: red;
+    padding: 5px 0 0 10px;
+    font-size: 12px;
 `

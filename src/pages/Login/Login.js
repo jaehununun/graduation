@@ -24,6 +24,12 @@ export const Login = () => {
         navigate('/signup')
     }, [navigate])
 
+    const handleLogin = useCallback(() => {
+        if (values.id === 'test' && values.password === 'test') {
+            navigate('/')
+        }
+    }, [navigate, values])
+
     return (
         <Container>
             <img src={logo} alt=''/>
@@ -55,7 +61,7 @@ const Container = styled.div`
 
 const TextContainer = styled.div`
     display: flex;
-    flex-direction: column;;
+    flex-direction: column;
 `
 
 const InputContainer = styled.div`
