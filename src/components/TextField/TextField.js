@@ -2,11 +2,11 @@ import { useRef } from "react"
 import styled from "styled-components"
 import { theme } from "../../styles/theme"
 
-export const TextField = ({label, value, onChange, placeholder, name, type, error}) => {
+export const TextField = ({label, value, onChange, placeholder, name, type, error, handleEnter}) => {
     const ref = useRef(null)
     return (
         <Container>
-            <InputBox ref={ref} value={value} onChange={(e) => onChange(e)} required placeholder={placeholder} name={name} type={type ? type : 'text'}/>
+            <InputBox ref={ref} value={value} onChange={(e) => onChange(e)} required placeholder={placeholder} name={name} type={type ? type : 'text'} onKeyDown={(e) => handleEnter(e)}/>
             <InputTitle onClick={() => ref.current.focus()}>{label}</InputTitle>
             {error && <Warnning>{error}</Warnning>}
         </Container>
