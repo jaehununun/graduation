@@ -4,13 +4,15 @@ const colors = {
     white: '#FFFFFF',
     letter: '#EBC72D',
     black: '#000000',
-    grayLight: '#d9d9d9'
+    grayLight: '#d9d9d9',
+    gray: 'gray'
 }
 
 const size = { 
     font: {
         title1: 35,
         title2: 30,
+        title3: 20,
         body1: 14,
     }
 }

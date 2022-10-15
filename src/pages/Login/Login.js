@@ -1,8 +1,10 @@
 import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSetRecoilState } from 'recoil'
 import styled from 'styled-components'
 import { BasicButton } from '../../components/Button/BasicButton'
 import { TextField } from '../../components/TextField/TextField'
+import { tokenState, userState } from '../../store/session'
 import { theme } from '../../styles/theme'
 import logo from './login_logo.svg'
 import title_img from './login_title.svg'
@@ -13,6 +15,8 @@ export const Login = () => {
         password: '',
     })
     const navigate = useNavigate();
+    const setTokenState = useSetRecoilState(tokenState)
+    const setUserState = useSetRecoilState(userState)
 
     const handleChange = useCallback((e) => {
         const name = e.target.name;
@@ -27,8 +31,10 @@ export const Login = () => {
     const handleLogin = useCallback(() => {
         if (values.id === 'test' && values.password === 'test') {
             navigate('/')
+            setTokenState('test')
+            setUserState({name: 'test'})
         }
-    }, [navigate, values])
+    }, [navigate, setTokenState, setUserState, values.id, values.password])
 
     return (
         <Container>
@@ -38,7 +44,7 @@ export const Login = () => {
                     <img src={title_img} alt=''/>
                     <TextField label='아이디' placeholder='전화번호, 사용자의 이메일 또는 학번' value={values.id} name='id' onChange={handleChange}/>
                     <TextField label='비밀번호' placeholder='비밀번호를 입력하세요' value={values.password} name='password' onChange={handleChange} type='password'/>
-                    <BasicButton title='로그인' onClick={() => {}}/>
+                    <BasicButton title='로그인' onClick={handleLogin}/>
                     <FindPassword>비밀번호를 잊으셨나요?</FindPassword>
                 </InputContainer>
                 <InputContainer>
