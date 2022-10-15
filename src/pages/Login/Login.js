@@ -33,8 +33,16 @@ export const Login = () => {
             navigate('/')
             setTokenState('test')
             setUserState({name: 'test'})
+        } else {
+            alert('없는 아이디 또는 잘못된 비밀번호 입니다.')
         }
     }, [navigate, setTokenState, setUserState, values.id, values.password])
+
+    const handleEnter = useCallback((e) => {
+        if (e.key === 'Enter') {
+            handleLogin()
+        }
+    }, [handleLogin])
 
     return (
         <Container>
@@ -43,7 +51,7 @@ export const Login = () => {
                 <InputContainer>
                     <img src={title_img} alt=''/>
                     <TextField label='아이디' placeholder='전화번호, 사용자의 이메일 또는 학번' value={values.id} name='id' onChange={handleChange}/>
-                    <TextField label='비밀번호' placeholder='비밀번호를 입력하세요' value={values.password} name='password' onChange={handleChange} type='password'/>
+                    <TextField label='비밀번호' placeholder='비밀번호를 입력하세요' value={values.password} name='password' onChange={handleChange} handleEnter={handleEnter} type='password'/>
                     <BasicButton title='로그인' onClick={handleLogin}/>
                     <FindPassword>비밀번호를 잊으셨나요?</FindPassword>
                 </InputContainer>
