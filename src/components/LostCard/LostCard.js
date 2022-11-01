@@ -1,8 +1,6 @@
 import styled from "styled-components"
 import { theme } from "../../styles/theme"
 import view_logo from './view_img.svg'
-import comment_logo from './comment_img.svg'
-import delete_logo from './delete_img.svg'
 import { useNavigate } from "react-router-dom"
 import { useCallback } from "react"
 
@@ -19,18 +17,11 @@ export const LostCard = ({content}) => {
         <Container onClick={handleClick}>
             <Image src={content?.src} />
             <Title>{content?.title}</Title>
-            <Location>{content?.location}</Location>
             <Number>
+                <Location>{content?.location}</Location>
                 <NumberBox>
                     <ImgBox src={view_logo} alt=''/>
                     <NumberText>{content?.totalView}</NumberText>
-                </NumberBox>
-                <NumberBox>
-                    <ImgBox src={comment_logo} alt=''/>
-                    <NumberText>{content?.totalComment}</NumberText>
-                </NumberBox>
-                <NumberBox>
-                    <ImgBox src={delete_logo} alt='' style={{margin: '0'}}/>
                 </NumberBox>
             </Number>
         </Container>
@@ -74,9 +65,9 @@ const NumberBox = styled.div`
 
 const ImgBox = styled.img`
     margin-right: 20px;
+    margin-top: -5px;
 `
 
 const NumberText = styled(Location)`
     position: relative;
-    top: 5px;
 `
