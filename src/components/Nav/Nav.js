@@ -15,8 +15,8 @@ export const Nav = () => {
         <Container>
             <ButtonBox>
                 <Button location={location === '/'} onClick={() => handleClick('/')}>찾아주세요</Button>
-                <Button onClick={() => handleClick('/')} location={location === '/register'}>찾아가세요</Button>
-                <Button onClick={() => handleClick('/')} location={location === '/found'}>한 눈에 보기</Button>
+                <Button onClick={() => handleClick('/')} location={location === '/lost'}>찾아가세요</Button>
+                <Button onClick={() => handleClick('/')} location={location === '/location'}>한 눈에 보기</Button>
             </ButtonBox>
         </Container>
     )

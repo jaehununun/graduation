@@ -8,7 +8,7 @@ import register from './register.svg';
 export const Home = () => {
     const navigate = useNavigate()
     const handleClick = useCallback(() => {
-        navigate('/')
+        navigate('/register')
     }, [navigate])
     return (
         <Layout>

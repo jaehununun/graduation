@@ -50,8 +50,12 @@ export const Login = () => {
             <TextContainer>
                 <InputContainer>
                     <img src={title_img} alt=''/>
-                    <TextField label='아이디' placeholder='전화번호, 사용자의 이메일 또는 학번' value={values.id} name='id' onChange={handleChange}/>
+                    <LoginContainer>
+                        <TextField label='아이디' placeholder='전화번호, 사용자의 이메일 또는 학번' value={values.id} name='id' onChange={handleChange}/>
+                    </LoginContainer>
+                    <LoginContainer>
                     <TextField label='비밀번호' placeholder='비밀번호를 입력하세요' value={values.password} name='password' onChange={handleChange} handleEnter={handleEnter} type='password'/>
+                    </LoginContainer>    
                     <BasicButton title='로그인' onClick={handleLogin}/>
                     <FindPassword>비밀번호를 잊으셨나요?</FindPassword>
                 </InputContainer>
@@ -97,4 +101,7 @@ const FindPassword = styled.div`
     align-items: center;
     margin: 30px 0;
     padding: 10px;
+`
+const LoginContainer = styled.div`
+    width: 387px;
 `

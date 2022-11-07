@@ -7,14 +7,14 @@ export const TextField = ({label, value, onChange, placeholder, name, type, erro
     return (
         <Container>
             <InputBox ref={ref} value={value} onChange={(e) => onChange(e)} required placeholder={placeholder} name={name} type={type ? type : 'text'} onKeyDown={(e) => handleEnter(e)}/>
-            <InputTitle onClick={() => ref.current.focus()}>{label}</InputTitle>
+            {label && <InputTitle onClick={() => ref.current.focus()}>{label}</InputTitle>}
             {error && <Warnning>{error}</Warnning>}
         </Container>
     )
 }
 
 const Container = styled.div`
-    width: 387px;
+    width: 100%;
     height: 50px;
     position: relative;
     margin: 15px 0;

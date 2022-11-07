@@ -49,12 +49,24 @@ export const Signup = () => {
                 <BasicButton title='학교이메일 인증하기' onClick={() => {}}/>
             </InputContainer>
             <InputContainer style={{paddingTop: '20px'}}>
-                <TextField name='studentNumber' label='학번' placeholder='학번을 입력하세요' onChange={handleChange} value={values.studentNumber}/>
-                <TextField name='name' label='이름' placeholder='이름을 입력하세요' onChange={handleChange} value={values.name}/>
-                <TextField name='email' label='이메일' placeholder='이메일을 입력하세요' onChange={handleChange} value={values.email} error={errors.email}/>
-                <TextField name='phone' label='전화번호' placeholder='전화번호를 입력하세요 ( "-" 제외 )' onChange={handleChange} value={values.phone} error={errors.phone}/>
-                <TextField name='password' label='비밀번호' type='password' placeholder='비밀번호를 입력하세요' onChange={handleChange} value={values.password}/>
-                <TextField name='checkPass' label='비밀번호 확인' type='password' placeholder='비밀번호를 입력하세요' onChange={handleChange} value={values.checkPass} error={errors.checkPass}/>
+                <InforContainer>
+                    <TextField name='studentNumber' label='학번' placeholder='학번을 입력하세요' onChange={handleChange} value={values.studentNumber}/>
+                </InforContainer>
+                <InforContainer>
+                    <TextField name='name' label='이름' placeholder='이름을 입력하세요' onChange={handleChange} value={values.name}/>
+                </InforContainer>
+                <InforContainer>
+                    <TextField name='email' label='이메일' placeholder='이메일을 입력하세요' onChange={handleChange} value={values.email} error={errors.email}/>
+                </InforContainer>
+                <InforContainer>
+                    <TextField name='phone' label='전화번호' placeholder='전화번호를 입력하세요 ( "-" 제외 )' onChange={handleChange} value={values.phone} error={errors.phone}/>
+                </InforContainer>
+                <InforContainer>
+                    <TextField name='password' label='비밀번호' type='password' placeholder='비밀번호를 입력하세요' onChange={handleChange} value={values.password}/>
+                </InforContainer>
+                <InforContainer>
+                    <TextField name='checkPass' label='비밀번호 확인' type='password' placeholder='비밀번호를 입력하세요' onChange={handleChange} value={values.checkPass} error={errors.checkPass}/>
+                </InforContainer>
                 <div style={{height: '20px'}}/>
                 <BasicButton title='가입하기' onClick={() => {}}/>
             </InputContainer>
@@ -81,4 +93,7 @@ const InputContainer = styled.div`
     padding: 50px 0 0 0;
     align-items: center;
     justify-content: space-around;
+`
+const InforContainer = styled.div`
+    width: 387px;
 `
