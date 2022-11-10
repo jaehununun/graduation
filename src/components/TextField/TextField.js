@@ -5,8 +5,8 @@ import { theme } from "../../styles/theme"
 export const TextField = ({label, value, onChange, placeholder, name, type, error, handleEnter}) => {
     const ref = useRef(null)
     return (
-        <Container>
-            <InputBox ref={ref} value={value} onChange={(e) => onChange(e)} required placeholder={placeholder} name={name} type={type ? type : 'text'} onKeyDown={(e) => handleEnter(e)}/>
+        <Container label={label}>
+            <InputBox label={label} ref={ref} value={value} onChange={(e) => onChange(e)} required placeholder={placeholder} name={name} type={type ? type : 'text'} onKeyDown={(e) => handleEnter(e)}/>
             {label && <InputTitle onClick={() => ref.current.focus()}>{label}</InputTitle>}
             {error && <Warnning>{error}</Warnning>}
         </Container>
@@ -16,7 +16,7 @@ export const TextField = ({label, value, onChange, placeholder, name, type, erro
 const Container = styled.div`
     width: 100%;
     height: 50px;
-    position: relative;
+    position: ${({ label }) => label && "relative"};
     margin: 15px 0;
 `
 
@@ -50,7 +50,7 @@ const InputBox = styled.input`
         color: ${theme.colors.primary};
     }
     ::placeholder {
-        color: white;
+    color: ${({ label }) => label && "white"};
     }
     &:focus::placeholder {
         color: gray;

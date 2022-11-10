@@ -28,11 +28,14 @@ export const Header = () => {
         navigate('/')
     }, [navigate])
 
+    const handleMypage = useCallback(()=>{
+        navigate('/mypage')
+    },[navigate])
     return (
         <Container>
             <img src={logo} alt='' style={{margin: '20px', cursor:'pointer', height: '50px'}} onClick={handleClick}/>
             <UserContainer>
-                <img src={user_logo} alt=''/>
+                <img src={user_logo} alt='' style={{cursor:'pointer'}} onClick={handleMypage}/>
                 <UserInfo onClick={handleLogout}>{user?.name}님 환영합니다.</UserInfo>
                 <SearchContainer>
                     <SearchInput type='text'/>
