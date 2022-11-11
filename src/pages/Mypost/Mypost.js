@@ -24,37 +24,38 @@ export const Mypost =()=>{
             hit: 1     
         },
         {
+            postType: 0,
+            title : "LG gram 주웠어요",
+            date: 1665347061620,
+            hit: 2
+        },
+        {
+            postType: 0,
+            title : "LG gram 주웠어요",
+            date: 1665347061620,
+            hit: 10 
+        },
+    ]
+    const mypost2=[
+        {
+            postType: 1,
+            title : "에이동에서 립 찾았어요",
+            date: 1665347061618,
+            hit: 7
+        },
+        {
+            postType: 1,
+            title : "에이동에서 립 찾았어요",
+            date: 1665347061618,
+            hit: 8
+        },
+        {
             postType: 1, /* postType === 1 => 찾아주세요 */
             title : "Galaxy Z flip3 잃어버렸습니다.",
             date: 1665347061619,
-            hit:1
+            hit:3
 
         },
-        {
-            postType: 0,
-            title : "LG gram 주웠어요",
-            date: 1665347061620,
-            hit: 1
-        },
-        {
-            postType: 1,
-            title : "에이동에서 립 찾았어요",
-            date: 1665347061618,
-            hit: 1
-        }
-        ,
-        {
-            postType: 0,
-            title : "LG gram 주웠어요",
-            date: 1665347061620,
-            hit: 1 
-        },
-        {
-            postType: 1,
-            title : "에이동에서 립 찾았어요",
-            date: 1665347061618,
-            hit: 1
-        }
     ]
     const handleClick = useCallback((path) => {
         navigate(path)
@@ -83,7 +84,7 @@ export const Mypost =()=>{
                     </PostContainer>
                     <PostContainer>
                         <MyHome>찾아주세요</MyHome>
-                        <MypostTable posts={mypost} handleOnClick={handleLocation}></MypostTable>
+                        <MypostTable posts={mypost2} handleOnClick={handleLocation}></MypostTable>
                     </PostContainer>
                 </BasicInfoContainer>
             </Container>

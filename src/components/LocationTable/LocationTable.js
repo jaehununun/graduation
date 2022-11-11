@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { timeMaker } from "../../utils/timeMaker";
-export const MypostTable = ({ posts, handleOnClick }) => {
+export const LocationTable = ({ posts, handleOnClick }) => {
   return (
     <Block>
       <TableStyles>
         <thead>
           <tr>
             <th>제목</th>
+            <th>장소</th>
+            <th>작성자</th>
             <th>작성일</th>
             <th>조회</th>
           </tr>
@@ -15,8 +17,10 @@ export const MypostTable = ({ posts, handleOnClick }) => {
           {posts.map((post, index) => (
             <tr onClick={()=>handleOnClick(post)} key={index}>
               <td>{post.title}</td>
-              <td>{timeMaker(post.date)}</td>
-              <td>{post.hit}</td>
+              <td>{post.location}</td>
+              <td>{post.user.name}</td>
+              <td>{timeMaker(post.createdAt)}</td>
+              <td>{post.totalView}</td>
             </tr>
           ))}
         </tbody>
@@ -74,6 +78,14 @@ const TableStyles = styled.table`
       cursor: pointer;
       flex: 2;
     }
+    & > td:nth-child(4) {
+      cursor: pointer;
+      flex: 2;
+    }
+    & > td:nth-child(5) {
+      cursor: pointer;
+      flex: 1;
+    }
 
     & > th:first-child {
       cursor: pointer;
@@ -86,6 +98,14 @@ const TableStyles = styled.table`
     & > th:nth-child(3) {
       cursor: pointer;
       flex: 2;
+    }
+    & > th:nth-child(4) {
+      cursor: pointer;
+      flex: 2;
+    }
+    & > th:nth-child(5) {
+      cursor: pointer;
+      flex: 1;
     }
   }
   td {

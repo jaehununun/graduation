@@ -6,6 +6,35 @@ import { theme } from "../../styles/theme"
 import user_icon from '../../components/Header/user_img.svg'
 import { timeMaker } from "../../utils/timeMaker"
 import { Posts } from "../Lost/Lost"
+import { Comment } from "../../components/Comment/Comment";
+import { BasicButton } from "../../components/Button/BasicButton";
+
+const comments = [
+    {
+      id: 1,
+      user: {
+        name: "유병익",
+        studentNumber: "B811111",
+      },
+      content: "얼른 찾길.....",
+    },
+    {
+      id: 2,
+      user: {
+        name: "유송경",
+        studentNumber: "B911111",
+      },
+      content: "와우관에 맡겨놨습니다. 찾아가세요",
+    },
+    {
+      id: 3,
+      user: {
+        name: "김재훈",
+        studentNumber: "B611044",
+      },
+      content: "찾았습니다!!! 감사합니다 ㅎ",
+    },
+];
 
 export const PostLost = () => {
     const location = useLocation()
@@ -35,6 +64,15 @@ export const PostLost = () => {
                         <div style={{margin: '5px 0'}}>잃어버린장소 : {data.location}</div>
                         <div style={{margin: '5px 0'}}>{data.content}</div>
                     </ContentContainer>
+                    <CommentInputContainer>
+                        <CommentInput placeholder="댓글을 입력하세요" />
+                        <BasicButton title="등록" width={80} />
+                    </CommentInputContainer>
+                    <CommentContainer>
+                        {comments.map((el) => (
+                        <Comment data={el} key={el.id} />
+                        ))}
+                    </CommentContainer>
                 </Container>
             </Wrapper>
         </Layout>
@@ -91,3 +129,24 @@ const Title2 = styled.div`
     color: ${theme.colors.gray};
     margin-bottom: 50px;
 `
+const CommentInputContainer = styled.div`
+  width: 900px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+`;
+
+const CommentInput = styled.textarea`
+  width: 800px;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: none;
+  height: 50px;
+  border: none;
+`;
+
+const CommentContainer = styled.div`
+  width: 900px;
+  display: flex;
+  flex-direction: column;
+`;

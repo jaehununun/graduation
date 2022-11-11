@@ -82,7 +82,7 @@ const TableStyles = styled.table`
       cursor: pointer;
       flex: 2;
     }
-    & > td:nth-child(6) {
+    & > td:nth-child(5) {
       cursor: pointer;
       flex: 1;
     }
@@ -103,7 +103,7 @@ const TableStyles = styled.table`
       cursor: pointer;
       flex: 2;
     }
-    & > th:nth-child(6) {
+    & > th:nth-child(5) {
       cursor: pointer;
       flex: 1;
     }

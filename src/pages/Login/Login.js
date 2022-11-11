@@ -29,10 +29,10 @@ export const Login = () => {
     }, [navigate])
 
     const handleLogin = useCallback(() => {
-        if (values.id === 'test' && values.password === 'test') {
+        if (values.id === 'B611044' && values.password === 'B611044') {
             navigate('/')
-            setTokenState('test')
-            setUserState({name: 'test'})
+            setTokenState('B611044')
+            setUserState({name: 'B611044'})
         } else {
             alert('없는 아이디 또는 잘못된 비밀번호 입니다.')
         }

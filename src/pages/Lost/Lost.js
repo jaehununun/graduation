@@ -2,244 +2,68 @@ import styled from "styled-components"
 import { Layout } from "../../components/Layout/Layout"
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
-import register from '../Home/register.svg';
 import { Table } from "../../components/Table/Table";
 export const Posts = [
     {
         id: 1,
-        title: "Galaxy Z Fold 3",
+        title: "Galaxy Z Fold 3 찾아주세요",
         location: "T동",
         name: "김재훈",
         createdAt: "2022.10.21",
-        totalView: 1,
+        totalView: 10,
         user:{
                 id: 0,
                 studentNumber: 'B611044',
                 name: '김재훈',
             },
-        content: "T동 담배피는 곳에서 주웠습니다."
+        content: "T동에서 잃어 버렸습니다. 찾아주세요 ㅠㅠㅜ"
+    },
+    {
+        id: 2,
+        title: "갤럭시 워치 4 찾아주세요 ㅜㅜ",
+        location: "R동",
+        name: "유송경",
+        createdAt: "2022.9.21",
+        totalView: 5,
+        user:{
+            id: 1,
+            studentNumber: 'B911144',
+            name: '유송경',
         },
-    {
-      id: 2,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
+        content: "R동에서 잃어 버렸습니다. 찾아주세요 ㅠㅠㅜ"
     },
     {
-      id: 3,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
+        id: 3,
+        title: "아이폰13pro잃어버렸습니다.........",
+        location: "S동",
+        name: "유병익",
+        createdAt: "2022.11.09",
+        totalView: 7,
+        user:{
+                id: 2,
+                studentNumber: 'B811044',
+                name: '유병익',
+            },
+        content: "S동에서 잃어 버렸습니다. 찾아주세요 ㅠㅠㅜ"
     },
     {
-      id: 4,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
+        id: 4,
+        title: "에어팟프로가..ㅠ.ㅠ",
+        location: "K동",
+        name: "송유경",
+        createdAt: "2022.8.21",
+        totalView: 23,
+        user:{
+            id: 3,
+            studentNumber: 'B911044',
+            name: '송유경',
+        },
+        content: "K동에서 잃어 버렸네요......ㅜ"
     },
-    {
-        id: 5,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 6,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 7,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 8,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 9,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 10,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 11,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 12,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 13,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 14,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 15,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 16,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 17,
-      title: "z fold 3",
-      location: "T동",
-      name: "김재훈",
-      createdAt: "2022.10.21",
-      totalView: 1,
-    },
-    {
-        id: 18,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 19,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 20,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 21,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 22,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 23,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 24,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 25,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 26,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
-    {
-        id: 27,
-        title: "z fold 3",
-        location: "T동",
-        name: "김재훈",
-        createdAt: "2022.10.21",
-        totalView: 1,
-    },
+    
 ];
 export const Lost =()=> {
     const navigate = useNavigate()
-    const handleClick = useCallback(() => {
-        navigate('/register2')
-    }, [navigate])
     const handleLocation = useCallback((content) => {
         navigate(`/postlost/${content?.id}`, {state: {
             id: content?.id
@@ -252,7 +76,6 @@ export const Lost =()=> {
                     <Table posts={Posts} handleOnClick={handleLocation}/>
                 </PostContainer>
             </Container>
-            <img src={register} alt='' style={{display:'inline-block',float:'right',cursor:'pointer'}} onClick={handleClick}/>
         </Layout>
     )
 }

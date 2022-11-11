@@ -2,14 +2,7 @@ import styled from "styled-components"
 import { Layout } from "../../components/Layout/Layout"
 import { LostCard } from "../../components/LostCard/LostCard"
 import { dummy } from "./data"
-import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
-import register from './register.svg';
 export const Home = () => {
-    const navigate = useNavigate()
-    const handleClick = useCallback(() => {
-        navigate('/register')
-    }, [navigate])
     return (
         <Layout>
             <Container>
@@ -19,7 +12,6 @@ export const Home = () => {
                     ))}
                 </GridContainer>
             </Container>
-            <img src={register} alt='' style={{display:'inline-block',float:'right',cursor:'pointer'}} onClick={handleClick}/>
         </Layout>
     )
 }

@@ -9,6 +9,7 @@ import {Register2} from './pages/Register2/Register2';
 import {Lost} from './pages/Lost/Lost';
 import {PostLost} from './pages/PostLost/PostLost'
 import {Location} from './pages/Location/Location'
+import {LocationResult} from './pages/LocationResult/LocationResult'
 import { Mypage } from './pages/Mypage/Mypage';
 import { Mypost } from './pages/Mypost/Mypost';
 
@@ -24,6 +25,7 @@ function App() {
         <Route path='/lost' element={<Lost/>}/>
         <Route path='/postlost/:id' element={<PostLost/>}/>
         <Route path='/location' element={<Location/>}/>
+        <Route path='/locationresult/:buildnum' element={<LocationResult/>}/>
         <Route path='/mypage' element={<Mypage/>}/>
         <Route path='/mypost' element={<Mypost/>}/>
       </Routes>

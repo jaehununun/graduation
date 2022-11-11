@@ -36,7 +36,7 @@ export const Register2 = () =>{
                         <option value="T동" >T동</option>
                         <option value="R동" >R동</option>
                         <option value="K동" >K동</option>
-                        <option value="L동" >L동</option>
+                        <option value="와우관" >와우관</option>
                         <option value="I동" >I동</option>
                         <option value="A동" >A동</option>
                         <option value="B동" >B동</option>
@@ -45,13 +45,15 @@ export const Register2 = () =>{
                         <option value="Z2동" >Z2동</option>
                         <option value="Z3동" >Z3동</option>
                         <option value="중앙도서관" >중앙도서관</option>
-                        <option value="현대미술관" >현대미술관</option>
                         <option value="E동" >E동</option>
                         <option value="S동" >S동</option>
+                        <option value="Z1동">Z1동</option>
                     </SelectBox>
                 </InputContainer>
                 <ContentContainer></ContentContainer>
-                <BasicButton title='등록' onClick={handleLocation} width="50px"/>
+                <ButtonContainer>
+                    <BasicButton title="등록" onClick={handleLocation} width={150} />
+                </ButtonContainer>
             </Container>
             </Wrapper>
         </Layout>
@@ -64,46 +66,54 @@ const Wrapper = styled.div`
     justify-content: center;
 `
 
-const Container= styled.div`
-    width: 960px;
-    height: 814px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 20px;
-`
-const TitleContainer=styled.div`
-    width: 960px;
-    height: 48px;
-    display: flex;
-    flex-direction: column;
-    border-bottom: 1px solid ${theme.colors.primary};
-    margin-bottom: 5px;
-`
+const Container = styled.div`
+  width: 960px;
+  height: 814px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+`;
+const TitleContainer = styled.div`
+  width: 960px;
+  height: 48px;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid ${theme.colors.primary};
+  margin-bottom: 5px;
+`;
 const Title = styled.div`
-    font-size: ${theme.size.font.title2}px;
-    color: ${theme.colors.primary};
-    font-weight: bold;
-`
-const InputContainer =styled.div`
-    width: 720px;
-`
+  font-size: ${theme.size.font.title2}px;
+  color: ${theme.colors.primary};
+  font-weight: bold;
+`;
+const InputContainer = styled.div`
+  width: 720px;
+`;
 const SelectBox = styled.select`
-    width: 720px;
-    height: 46px;
-    & > option:first-child {
+  width: 720px;
+  height: 46px;
+  & > option:first-child {
     display: none;
-    }
-    padding-left: 20px;
-    font-size: 17px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-`
-const ContentContainer = styled.textarea `
-    width : 720px;
-    height: 346px;
-    resize: none;
-    font-size: 14px;
-    border-radius: 10px;
-    padding: 20px;
-`
+  }
+  padding-left: 20px;
+  font-size: 17px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+`;
+const ContentContainer = styled.textarea`
+  width: 720px;
+  height: 346px;
+  resize: none;
+  font-size: 14px;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+`;
+const ButtonContainer = styled.div`
+  width: 75%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  padding-bottom: 50px;
+`;
