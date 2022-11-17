@@ -65,7 +65,7 @@ const buildingInfo=[
 export const Location =()=>{
     const navigate= useNavigate()
     const handleClick = useCallback((location)=>{
-        navigate(`/locationresult/${location}`)
+        navigate(`/locationresult/${location}`,{state:{location}})
     },[navigate])
     return (
         <Layout>

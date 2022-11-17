@@ -1,7 +1,7 @@
 import { Layout } from "../../components/Layout/Layout"
 import { LocationTable } from "../../components/LocationTable/LocationTable"
 import { theme } from "../../styles/theme"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import styled from "styled-components";
 import { Table } from "../../components/Table/Table"
@@ -201,19 +201,21 @@ export const foundPosts = [
 const buildingName=[
     "T동","R동","K동","와우관","I동","A동","B동","C동","D동","Z1동","Z2동","중앙도서관","E동","S동"
 ]
-export const LocationResult =(building)=>{
+export const LocationResult =()=>{
     const navigate = useNavigate()
     const handleLocation = useCallback((content) => {
         navigate(`/postlost/${content?.id}`, {state: {
             id: content?.id
         }})
     }, [navigate])
+    const state = useLocation()
+    const {location}=state.state
     return(
         <Layout>
             <Wrapper>
                 <Container>
                     <TitleContainer>
-                        <Title>{buildingName[0]}</Title>
+                        <Title>{buildingName[location]}</Title>
                     </TitleContainer>
                     <TableContainer>
                         <PostType>찾아주세요</PostType>
