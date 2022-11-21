@@ -36,16 +36,15 @@ export const Register = () => {
   const [req, res] = useUpdateFound();
 
   const handleSubmit = useCallback(() => {
-    const fd = new FormData()
-    fd.append('picture', file)
-    req({...values, photo: "https://cdn.discordapp.com/attachments/967432482163154955/1030839323496546424/unknown.png", date: new Date().getTime().toString()})
+    req({...values, photo: file.toString(), date: new Date().getTime().toString()})
   }, [file, req, values])
 
   useEffect(() => {
     if (res.called && !res.loading && res.data) {
       console.log(res.data)
+      navigate('/')
     }
-  }, [res])
+  }, [res,navigate])
 
   return (
     <Layout>

@@ -8,7 +8,7 @@ export const useLogin = () => {
     return request({
       url: "/user/sign-in",
       method: "POST",
-      data: { studentNumber, password },
+      data: {studentNumber, password },
     });
   };
 
