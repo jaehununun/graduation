@@ -1,9 +1,10 @@
 // import axios from "axios"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { BasicButton } from "../../components/Button/BasicButton"
 import { TextField } from "../../components/TextField/TextField"
+import { useSignup } from "../../hooks/session"
 import { theme } from "../../styles/theme"
 import { checkPassValidation, emailValidation, phoneValidation } from "../../utils/checkValidation"
 import title_img from '../Login/login_title.svg'
@@ -23,6 +24,7 @@ export const Signup = () => {
         checkPass: '',
     })
     const navigate = useNavigate()
+    const [req, res] = useSignup();
 
     const handleLocation = useCallback(() => {
         navigate('/')
@@ -42,24 +44,25 @@ export const Signup = () => {
         
         setValues({...values, [name]: value})
     }, [errors, values])
-    const handleSignup=useCallback(()=>{
-        alert('가입되었습니다.')
-        navigate('/')
-    },[navigate])
-    // const handleSubmit = useCallback(() => {
-    //     axios
-    //       .post("http://localhost:8080/auth/signup", {
-    //         studentNumber: values.studentNumber,
-    //         name: values.name,
-    //         password: values.password,
-    //         email: values.email,
-    //         mobile: values.phone,
-    //       })
-    //       .then((res) => {
-    //         console.log(res);
-    //       })
-    //       .catch((err) => console.log(err));
-    //   }, [values]);
+
+    const handleSubmit = useCallback(() => {
+        req({
+            studentNumber: values.studentNumber,
+            userEmail: values.email,
+            userName: values.name,
+            userNickname: values.name,
+            password: values.password,
+            phoneNumber: values.phone
+        })
+    }, [req, values.email, values.name, values.password, values.phone, values.studentNumber])
+
+    useEffect(() => {
+        if (!res.loading && res.data && res.called) {
+            alert('회원가입이 완료되었습니다!')
+            navigate('/login')
+        }
+    }, [res, navigate])
+
     return (
         <TextContainer>
             <InputContainer>
@@ -86,7 +89,7 @@ export const Signup = () => {
                     <TextField name='checkPass' label='비밀번호 확인' type='password' placeholder='비밀번호를 입력하세요' onChange={handleChange} value={values.checkPass} error={errors.checkPass}/>
                 </InforContainer>
                 <div style={{height: '20px'}}/>
-                <BasicButton title='가입하기' /*onClick={() => {}}*/ onClick={handleSignup} /*onClick={handleSubmit}*//>
+                <BasicButton title='가입하기' onClick={handleSubmit}/>
             </InputContainer>
             <InputContainer>
                 <div style={{paddingBottom: '30px'}}>

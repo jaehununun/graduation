@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Layout } from "../../components/Layout/Layout";
 import { theme } from "../../styles/theme";
 import { TextField } from "../../components/TextField/TextField";
@@ -7,11 +7,11 @@ import img_logo from "./image.svg";
 import photo_logo from "./photo.svg";
 import { BasicButton } from "../../components/Button/BasicButton";
 import { useNavigate } from "react-router-dom";
+import { useUpdateFound } from "../../hooks/api";
 
 export const Register = () => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
-    photo: "",
     title: "",
     category: "",
     date: "",
@@ -21,6 +21,7 @@ export const Register = () => {
     store_detail: "",
     content: "",
   });
+  const [file, setFile] = useState();
   const handleChange = useCallback(
     (e) => {
       const name = e.target.name;
@@ -32,6 +33,19 @@ export const Register = () => {
   const handleLocation = useCallback(() => {
     navigate("/");
   }, [navigate]);
+  const [req, res] = useUpdateFound();
+
+  const handleSubmit = useCallback(() => {
+    const fd = new FormData()
+    fd.append('picture', file)
+    req({...values, photo: "https://cdn.discordapp.com/attachments/967432482163154955/1030839323496546424/unknown.png", date: new Date().getTime().toString()})
+  }, [file, req, values])
+
+  useEffect(() => {
+    if (res.called && !res.loading && res.data) {
+      console.log(res.data)
+    }
+  }, [res])
 
   return (
     <Layout>
@@ -47,7 +61,7 @@ export const Register = () => {
               name="title"
               onChange={handleChange}
             />
-            <SelectBox defaultValue={"선택"}>
+            <SelectBox defaultValue={"선택"} onChange={handleChange} name='lost_location'>
               <option value="선택" disabled>
                 발견한 장소를 선택해주세요
               </option>
@@ -66,7 +80,13 @@ export const Register = () => {
               <option value="E동">E동</option>
               <option value="S동">S동</option>
             </SelectBox>
-            <SelectBox defaultValue={"선택"}>
+            <TextField
+              placeholder="발견장소 상세"
+              value={values.lost_detail}
+              name="lost_detail"
+              onChange={handleChange}
+            />
+            <SelectBox defaultValue={"선택"} onChange={handleChange} name='store_location'>
               <option value="선택" disabled>
                 보관중인 장소를 선택해주세요
               </option>
@@ -85,7 +105,13 @@ export const Register = () => {
               <option value="E동">E동</option>
               <option value="S동">S동</option>
             </SelectBox>
-            <SelectBox defaultValue={"선택"}>
+            <TextField
+              placeholder="보관 장소 상세"
+              value={values.store_detail}
+              name="store_detail"
+              onChange={handleChange}
+            />
+            <SelectBox defaultValue={"선택"} onChange={handleChange} name='category'>
               <option value="선택" disabled>
                 분실물종류를 선택해주세요
               </option>
@@ -95,18 +121,6 @@ export const Register = () => {
               <option value="노트북">노트북</option>
               <option value="무선이어폰">무선이어폰</option>
             </SelectBox>
-            <TextField
-              placeholder="브랜드를 입력해주세요."
-              value={values.lost_location}
-              name="lost_location"
-              onChange={handleChange}
-            />
-            <TextField
-              placeholder="색상을 입력해주세요."
-              value={values.store_location}
-              name="store_location"
-              onChange={handleChange}
-            />
             <img
               src={photo_logo}
               alt=""
@@ -117,10 +131,11 @@ export const Register = () => {
               alt=""
               style={{ marginLeft: "20px", cursor: "pointer", height: "50px" }}
             />
+            <input type='file' accept='image/*' onChange={(e) => setFile(e.target.files[0])}/>
           </InputContainer>
-          <ContentContainer></ContentContainer>
+          <ContentContainer name='content' value={values.content} onChange={handleChange}></ContentContainer>
           <ButtonContainer>
-            <BasicButton title="등록" onClick={handleLocation} width={150} />
+            <BasicButton title="등록" onClick={handleSubmit} width={150} />
           </ButtonContainer>
         </Container>
       </Wrapper>

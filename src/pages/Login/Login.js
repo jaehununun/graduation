@@ -1,10 +1,11 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSetRecoilState } from 'recoil'
 import styled from 'styled-components'
 import { BasicButton } from '../../components/Button/BasicButton'
 import { TextField } from '../../components/TextField/TextField'
-import { tokenState, userState } from '../../store/session'
+import { useLogin } from '../../hooks/session'
+import { tokenState } from '../../store/session'
 import { theme } from '../../styles/theme'
 import logo from './login_logo.svg'
 import title_img from './login_title.svg'
@@ -16,7 +17,7 @@ export const Login = () => {
     })
     const navigate = useNavigate();
     const setTokenState = useSetRecoilState(tokenState)
-    const setUserState = useSetRecoilState(userState)
+    const [req, res] = useLogin();
 
     const handleChange = useCallback((e) => {
         const name = e.target.name;
@@ -29,14 +30,20 @@ export const Login = () => {
     }, [navigate])
 
     const handleLogin = useCallback(() => {
-        if (values.id === 'B611044' && values.password === 'B611044') {
-            navigate('/')
-            setTokenState('B611044')
-            setUserState({name: 'B611044'})
-        } else {
-            alert('없는 아이디 또는 잘못된 비밀번호 입니다.')
+        req(values.id, values.password)
+    }, [req, values.id, values.password])
+
+    useEffect(() => {
+        if (res.data && !res.loading && res.called) {
+            if (res.data.isSuccess) {
+                setTokenState(res.data.result.studentNumber)
+                navigate('/');
+            }
+            else {
+                alert(res.data.message)
+            }
         }
-    }, [navigate, setTokenState, setUserState, values.id, values.password])
+    }, [navigate, res.called, res.data, res.loading, setTokenState])
 
     const handleEnter = useCallback((e) => {
         if (e.key === 'Enter') {

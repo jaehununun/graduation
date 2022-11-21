@@ -7,17 +7,30 @@ import styled from "styled-components";
 import user_logo from './user_img.svg'
 import { theme } from "../../styles/theme";
 import search_logo from './search_img.svg'
+import { useMyInfo } from "../../hooks/session";
 
 export const Header = () => {
     const [token, setToken] = useRecoilState(tokenState);
     const [user, setUser] = useRecoilState(userState)
     const navigate = useNavigate()
+    const [req, res] = useMyInfo();
 
     useEffect(() => {
+        req(token)
         if (!token) {
             navigate('/login')
         }
-    }, [navigate, token])
+    }, [navigate, token, req])
+
+    useEffect(() => {
+        if (!res.loading && res.data && !res.error && res.called) {
+            if (res.data.isSuccess) {
+                setUser(res.data.result)
+            } else {
+                console.log(res)
+            }
+        }
+    }, [res, setUser])
 
     const handleLogout = useCallback(() => {
         setToken(null)
