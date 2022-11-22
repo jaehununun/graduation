@@ -16,11 +16,13 @@ export const Header = () => {
     const [req, res] = useMyInfo();
 
     useEffect(() => {
-        req(token)
+        if(!user){
+            req(token)
+        }
         if (!token) {
             navigate('/login')
         }
-    }, [navigate, token, req])
+    }, [navigate, token, req, user])
 
     useEffect(() => {
         if (!res.loading && res.data && !res.error && res.called) {

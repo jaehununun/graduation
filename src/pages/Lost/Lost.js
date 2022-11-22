@@ -3,6 +3,9 @@ import { Layout } from "../../components/Layout/Layout"
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { Table } from "../../components/Table/Table";
+import { useEffect } from "react";
+import { useGetLost } from "../../hooks/api";
+import { useState } from "react";
 export const Posts = [
     {
         id: 1,
@@ -64,16 +67,39 @@ export const Posts = [
 ];
 export const Lost =()=> {
     const navigate = useNavigate()
+    const [req,res] = useGetLost();
+    useEffect(()=>{
+        req()
+    },[req])
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        if(res.called && !res.loading && res.data) {
+            const arr = []
+            res.data.result.forEach((el) => {
+                arr.push({
+                    id: el.lostId,
+                    title: el.lostTitle,
+                    totalView: el.hit,
+                    createdAt: el.date,
+                    location: el.location,
+                    name: el.userNickname
+                })
+            })
+            setPosts(arr)
+        }
+    }, [res])
     const handleLocation = useCallback((content) => {
         navigate(`/postlost/${content?.id}`, {state: {
             id: content?.id
         }})
     }, [navigate])
+
     return (
         <Layout>
             <Container>
                 <PostContainer>
-                    <Table posts={Posts} handleOnClick={handleLocation}/>
+                    <Table posts={posts} handleOnClick={handleLocation}/>
                 </PostContainer>
             </Container>
         </Layout>

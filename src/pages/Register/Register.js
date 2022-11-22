@@ -8,9 +8,12 @@ import photo_logo from "./photo.svg";
 import { BasicButton } from "../../components/Button/BasicButton";
 import { useNavigate } from "react-router-dom";
 import { useUpdateFound } from "../../hooks/api";
+import { useRecoilValue } from "recoil";
+import { tokenState } from "../../store/session";
 
 export const Register = () => {
   const navigate = useNavigate();
+  const userId=useRecoilValue(tokenState);
   const [values, setValues] = useState({
     title: "",
     category: "",
@@ -36,8 +39,8 @@ export const Register = () => {
   const [req, res] = useUpdateFound();
 
   const handleSubmit = useCallback(() => {
-    req({...values, photo: file.toString(), date: new Date().getTime().toString()})
-  }, [file, req, values])
+    req({...values, imagefile: file, date: new Date().getTime().toString(),userId: userId})
+  }, [file, req, userId, values])
 
   useEffect(() => {
     if (res.called && !res.loading && res.data) {

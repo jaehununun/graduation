@@ -8,6 +8,7 @@ import user_icon from "../../components/Header/user_img.svg";
 import { timeMaker } from "../../utils/timeMaker";
 import { BasicButton } from "../../components/Button/BasicButton";
 import { Comment } from "../../components/Comment/Comment";
+import { useGetFoundPost } from "../../hooks/api";
 
 const comments = [
   {
@@ -40,14 +41,36 @@ export const Post = () => {
   const location = useLocation();
   const { id } = location.state;
   const [data, setData] = useState({});
+  const [req,res]=useGetFoundPost()
 
   const getData = useCallback(() => {
     setData(dummy.filter((el) => el.id === id)[0]);
   }, [id]);
 
   useEffect(() => {
-    getData();
-  }, [getData]);
+      req(id)
+  }, [getData, id, req]);
+  useEffect(() => {
+    if (res.called && !res.loading && res.data) {
+      setData({
+        user: {
+          name: res.data.result.userNickname,
+        },
+        content:{
+          foundAddr: res.data.result.lost_location,
+          keepAddr:res.data.result.store_location,
+          kind:res.data.result.category,
+          brand:res.data.result.lost_detail,
+          color:res.data.result.store_detail,
+          etc:res.data.result.content
+        },
+        title: res.data.result.title,
+        createdAt: res.data.result.date,
+        totalView: res.data.result.hit,
+        src: res.data.result.url
+      });
+    }
+  }, [res]);
 
   return (
     <Layout>

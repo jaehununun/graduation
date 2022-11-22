@@ -8,6 +8,7 @@ import { timeMaker } from "../../utils/timeMaker"
 import { Posts } from "../Lost/Lost"
 import { Comment } from "../../components/Comment/Comment";
 import { BasicButton } from "../../components/Button/BasicButton";
+import { useGetLostPost } from "../../hooks/api"
 
 const comments = [
     {
@@ -40,22 +41,35 @@ export const PostLost = () => {
     const location = useLocation()
     const {id} = location.state
     const [data, setData] = useState({})
-
+    const [req,res]= useGetLostPost()
     const getData = useCallback(() => {
         setData(Posts.filter((el) => el.id === id)[0])
     }, [id])
 
     useEffect(() => {
-        getData()
-    }, [getData])
-
+        req(id)
+    }, [getData, id, req])
+    useEffect(() => {
+        if (res.called && !res.loading && res.data) {
+          setData({
+            user: {
+              name: res.data.result.userNickname,
+            },
+            location: res.data.result.location,
+            content: res.data.result.contents,
+            createdAt: res.data.result.date,
+            hit: res.data.result.hit,
+            title: res.data.result.title
+          });
+        }
+      }, [res]);
     return (
         <Layout>
             <Wrapper>
                 <Container>
                     <UserContainer>
                         <img src={user_icon} alt=''/>
-                        <UserInfo>{`${data?.user?.studentNumber} ${data?.user?.name}`}</UserInfo>
+                        <UserInfo>{`${data?.user?.name}`}</UserInfo>
                         <UserInfo>{data?.location}</UserInfo>
                     </UserContainer>
                     <ContentContainer>

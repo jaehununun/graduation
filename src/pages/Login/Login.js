@@ -36,7 +36,7 @@ export const Login = () => {
     useEffect(() => {
         if (res.data && !res.loading && res.called) {
             if (res.data.isSuccess) {
-                setTokenState(res.data.result.studentNumber)
+                setTokenState(res.data.result.userId)
                 navigate('/');
             }
             else {

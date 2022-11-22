@@ -4,8 +4,14 @@ import user_img from "./user_img.svg"
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../../styles/theme"
+import { useRecoilValue } from "recoil";
+import { tokenState } from "../../store/session";
+import { useGetMyinfo } from "../../hooks/api";
+import { useEffect } from "react";
 export const Mypage =()=>{
     const location = window.location.pathname;
+    const userId= useRecoilValue(tokenState);
+    const [req,res] = useGetMyinfo(Number(userId));
     const navigate = useNavigate()
     const owner ={
             studentNumber : "B611044",
@@ -17,6 +23,16 @@ export const Mypage =()=>{
     const handleClick = useCallback((path) => {
         navigate(path)
     }, [navigate])
+
+    useEffect(()=>{
+        req()
+    },[req])
+    console.log(userId)
+    useEffect(()=>{
+        if(res.called && !res.loading && res.data) {
+            console.log(res)
+        }
+    })
     return(
         <Layout>
             <Container>

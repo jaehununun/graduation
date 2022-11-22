@@ -6,7 +6,7 @@ export const TextField = ({label, value, onChange, placeholder, name, type, erro
     const ref = useRef(null)
     return (
         <Container label={label}>
-            <InputBox label={label} ref={ref} value={value} onChange={(e) => onChange(e)} required placeholder={placeholder} name={name} type={type ? type : 'text'} onKeyDown={(e) => handleEnter(e)}/>
+            <InputBox label={label} ref={ref} value={value} onChange={(e) => onChange(e)} required placeholder={placeholder} name={name} type={type ? type : 'text'} onKeyDown={(e) => handleEnter && handleEnter(e)}/>
             {label && <InputTitle onClick={() => ref.current.focus()}>{label}</InputTitle>}
             {error && <Warnning>{error}</Warnning>}
         </Container>

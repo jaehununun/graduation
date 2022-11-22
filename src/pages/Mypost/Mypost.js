@@ -5,6 +5,10 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../../styles/theme";
 import { MypostTable} from "../../components/MypostTable/MypostTable";
+import { useGetMyposts } from "../../hooks/api";
+import { useRecoilValue } from "recoil";
+import { tokenState } from "../../store/session";
+import { useEffect } from "react";
 
 
 export const Mypost =()=>{
@@ -66,6 +70,18 @@ export const Mypost =()=>{
             id: content?.id
         }})
     }, [navigate])
+    const userId=useRecoilValue(tokenState);
+    const [req,res]=useGetMyposts(userId);
+
+    useEffect(()=>{
+        req()
+    },[req])
+
+    useEffect(()=>{
+        if(res.called && !res.loading && res.data){
+            console.log(res)
+        }
+    },[res])
     return(
         <Layout>
             <Container>

@@ -5,14 +5,19 @@ import { theme } from "../../styles/theme";
 import { TextField } from '../../components/TextField/TextField'
 import { BasicButton } from "../../components/Button/BasicButton";
 import { useNavigate } from 'react-router-dom'
+import { useUpdateLost } from "../../hooks/api";
+import { useEffect } from "react";
+import { useRecoilValue } from "recoil";
+import { tokenState } from "../../store/session";
 
 export const Register2 = () =>{
     const navigate = useNavigate();
+    const userId=useRecoilValue(tokenState);
     const [values, setValues] = useState({
-        photo: '',
-	    title: '',
-	    category: '',
-        date: '',
+        userId: '',
+	      title: '',
+        location:'',
+        contents:''
     })
     const handleChange = useCallback((e) => {
         const name = e.target.name;
@@ -22,6 +27,20 @@ export const Register2 = () =>{
     const handleLocation = useCallback(() => {
         navigate('/lost')
     }, [navigate])
+
+    const [req,res] = useUpdateLost();
+
+    const handleSubmit = useCallback(()=>{
+      req({...values,userId:userId})
+    },[req, userId, values])
+
+    useEffect(()=>{
+      if(res.called && !res.loading && res.data){
+        console.log(res.data)
+        navigate('/lost')
+      }
+    },[res,navigate])
+
     return(
         <Layout>
             <Wrapper>
@@ -31,7 +50,7 @@ export const Register2 = () =>{
                 </TitleContainer>
                 <InputContainer>
                     <TextField placeholder='제목을 입력해주세요.' value={values.title} name='title' onChange={handleChange}/>
-                    <SelectBox defaultValue={"선택"}>
+                    <SelectBox defaultValue={"선택"} onChange={handleChange} name='location'>
                         <option value="선택" disabled>잃어버린 장소를 선택해주세요</option>
                         <option value="T동" >T동</option>
                         <option value="R동" >R동</option>
@@ -50,9 +69,9 @@ export const Register2 = () =>{
                         <option value="Z1동">Z1동</option>
                     </SelectBox>
                 </InputContainer>
-                <ContentContainer></ContentContainer>
+                <ContentContainer name='contents' value={values.contents} onChange={handleChange}></ContentContainer>
                 <ButtonContainer>
-                    <BasicButton title="등록" onClick={handleLocation} width={150} />
+                    <BasicButton title="등록" onClick={handleSubmit} width={150} />
                 </ButtonContainer>
             </Container>
             </Wrapper>

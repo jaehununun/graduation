@@ -4,6 +4,9 @@ import styled from "styled-components"
 import { Layout } from "../../components/Layout/Layout"
 import campusMap from "../Location/campusmap.svg"
 import { theme } from "../../styles/theme";
+import { useGetLocation } from "../../hooks/api"
+import { useEffect } from "react"
+import { useState } from "react"
 const buildingInfo=[
     {
         buildingNum: 0,
@@ -67,12 +70,35 @@ export const Location =()=>{
     const handleClick = useCallback((location)=>{
         navigate(`/locationresult/${location}`,{state:{location}})
     },[navigate])
+    const [req,res]=useGetLocation();
+    // console.log(res)
+    useEffect(()=>{
+        req()
+    },[req])
+    const [buildings,setBuildings]= useState([])
+    useEffect(()=>{
+        if(res.called && res.loading && res.data){
+            const arr = []
+            res.data.result.forEach((el)=>{
+                arr.push({
+                    buildingName: el.location,
+                    buildingPost: el.count
+                })
+            })
+            setBuildings(arr)
+        }
+    },[res])
+    // useEffect(()=>{
+    //     console.log(res)
+    //     if(res.called && !res.loading && res.data){
+            
+    // },[res])
     return (
         <Layout>
             <Container>
                 <CampusMapContainer>
                     <CampusImg src={campusMap} alt=''></CampusImg>
-                    <BuildingIcon top={-180} left={100} onClick={()=>handleClick(buildingInfo[0].buildingNum)}>T동: {buildingInfo[0].buildingPost}</BuildingIcon>
+                    <BuildingIcon top={-180} left={100} onClick={()=>handleClick(buildingInfo[0].buildingNum)}>{buildings.buildingName}: {buildings.buildingPost}</BuildingIcon>
                     <BuildingIcon top={-190} left={-260} onClick={()=>handleClick(buildingInfo[1].buildingNum)}>R동: {buildingInfo[1].buildingPost}</BuildingIcon>
                     <BuildingIcon top={-350} left={-230} onClick={()=>handleClick(buildingInfo[2].buildingNum)}>K동: {buildingInfo[2].buildingPost}</BuildingIcon>
                     <BuildingIcon top={-420} left={-170} onClick={()=>handleClick(buildingInfo[3].buildingNum)}>와우관: {buildingInfo[3].buildingPost}</BuildingIcon>
