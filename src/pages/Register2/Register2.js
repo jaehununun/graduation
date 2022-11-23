@@ -24,9 +24,6 @@ export const Register2 = () =>{
         const value = e.target.value;
         setValues({...values, [name]: value})
     }, [values])
-    const handleLocation = useCallback(() => {
-        navigate('/lost')
-    }, [navigate])
 
     const [req,res] = useUpdateLost();
 
@@ -36,7 +33,6 @@ export const Register2 = () =>{
 
     useEffect(()=>{
       if(res.called && !res.loading && res.data){
-        console.log(res.data)
         navigate('/lost')
       }
     },[res,navigate])
@@ -55,14 +51,13 @@ export const Register2 = () =>{
                         <option value="T동" >T동</option>
                         <option value="R동" >R동</option>
                         <option value="K동" >K동</option>
-                        <option value="와우관" >와우관</option>
+                        <option value="L동" >와우관</option>
                         <option value="I동" >I동</option>
                         <option value="A동" >A동</option>
                         <option value="B동" >B동</option>
                         <option value="C동" >C동</option>
                         <option value="D동" >D동</option>
                         <option value="Z2동" >Z2동</option>
-                        <option value="Z3동" >Z3동</option>
                         <option value="중앙도서관" >중앙도서관</option>
                         <option value="E동" >E동</option>
                         <option value="S동" >S동</option>

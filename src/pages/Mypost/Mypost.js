@@ -1,66 +1,21 @@
 import styled from "styled-components";
 import { Layout } from "../../components/Layout/Layout"
 import user_img from "./user_img.svg"
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { theme } from "../../styles/theme";
 import { MypostTable} from "../../components/MypostTable/MypostTable";
 import { useGetMyposts } from "../../hooks/api";
 import { useRecoilValue } from "recoil";
-import { tokenState } from "../../store/session";
+import { tokenState, userState } from "../../store/session";
 import { useEffect } from "react";
+import { MyfoundTable } from "../../components/MyfoundTable/MyfoundTable";
 
 
 export const Mypost =()=>{
     const location = window.location.pathname;
     const navigate = useNavigate()
-    const owner ={
-            studentNumber : "B611044",
-            name : "김재훈",
-            email : "ivankim0407@gmail.com",
-            phoneNumber : "010-5842-5119"
-    }
-    const mypost =[
-        {
-            postType: 0, /* postType === 0 => 찾아가세요 */
-            title : "에이동에서 립 주웠어요",
-            date: 1665347061618,
-            hit: 1     
-        },
-        {
-            postType: 0,
-            title : "LG gram 주웠어요",
-            date: 1665347061620,
-            hit: 2
-        },
-        {
-            postType: 0,
-            title : "LG gram 주웠어요",
-            date: 1665347061620,
-            hit: 10 
-        },
-    ]
-    const mypost2=[
-        {
-            postType: 1,
-            title : "에이동에서 립 찾았어요",
-            date: 1665347061618,
-            hit: 7
-        },
-        {
-            postType: 1,
-            title : "에이동에서 립 찾았어요",
-            date: 1665347061618,
-            hit: 8
-        },
-        {
-            postType: 1, /* postType === 1 => 찾아주세요 */
-            title : "Galaxy Z flip3 잃어버렸습니다.",
-            date: 1665347061619,
-            hit:3
-
-        },
-    ]
+    const user=useRecoilValue(userState);
     const handleClick = useCallback((path) => {
         navigate(path)
     }, [navigate])
@@ -72,14 +27,34 @@ export const Mypost =()=>{
     }, [navigate])
     const userId=useRecoilValue(tokenState);
     const [req,res]=useGetMyposts(userId);
-
+    const [mylostpost,setMylostpost]=useState([])
+    const [myfoundpost,setMyfoundpost]=useState([])
     useEffect(()=>{
-        req()
-    },[req])
+        req(userId)
+    },[req, userId])
 
     useEffect(()=>{
         if(res.called && !res.loading && res.data){
-            console.log(res)
+            const arr = []
+            res.data.result.forEach((el)=>{
+                arr.push(({
+                    id: el.id,
+                    title: el.title,
+                    date: el.date,
+                    hit: el.hit
+                }))
+            })
+            setMylostpost(arr)
+            const arr2 =[]
+            res.data.comments.forEach((el)=>{
+                arr2.push(({
+                    id: el.id,
+                    title: el.title,
+                    date: el.date,
+                    hit: el.hit
+                }))
+            })
+            setMyfoundpost(arr2)
         }
     },[res])
     return(
@@ -87,7 +62,7 @@ export const Mypost =()=>{
             <Container>
                 <UserContainer>
                     <img src={user_img} alt="" />
-                    <UserInfo> {owner?.studentNumber} {owner?.name}님</UserInfo>
+                    <UserInfo> {user.studentNumber} {user.name}님</UserInfo>
                 </UserContainer>
                 <BasicInfoContainer>
                     <InfoNavContainer>
@@ -96,11 +71,11 @@ export const Mypost =()=>{
                     </InfoNavContainer>
                     <PostContainer>
                         <MyHome>찾아가세요</MyHome>
-                        <MypostTable posts={mypost} handleOnClick={handleLocation}></MypostTable>
+                        <MyfoundTable posts={myfoundpost} handleOnClick={handleLocation}></MyfoundTable>
                     </PostContainer>
                     <PostContainer>
                         <MyHome>찾아주세요</MyHome>
-                        <MypostTable posts={mypost2} handleOnClick={handleLocation}></MypostTable>
+                        <MypostTable posts={mylostpost} handleOnClick={handleLocation}></MypostTable>
                     </PostContainer>
                 </BasicInfoContainer>
             </Container>

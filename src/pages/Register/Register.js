@@ -33,9 +33,6 @@ export const Register = () => {
     },
     [values]
   );
-  const handleLocation = useCallback(() => {
-    navigate("/");
-  }, [navigate]);
   const [req, res] = useUpdateFound();
 
   const handleSubmit = useCallback(() => {
@@ -44,7 +41,6 @@ export const Register = () => {
 
   useEffect(() => {
     if (res.called && !res.loading && res.data) {
-      console.log(res.data)
       navigate('/')
     }
   }, [res,navigate])
@@ -95,7 +91,7 @@ export const Register = () => {
               <option value="T동">T동</option>
               <option value="R동">R동</option>
               <option value="K동">K동</option>
-              <option value="L동">L동</option>
+              <option value="L동">와우관</option>
               <option value="I동">I동</option>
               <option value="A동">A동</option>
               <option value="B동">B동</option>

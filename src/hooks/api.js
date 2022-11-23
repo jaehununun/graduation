@@ -1,6 +1,4 @@
 import { useCallback } from "react";
-import { useRecoilValue } from "recoil";
-import { tokenState } from "../store/session";
 import { useAxios } from "./axios"
 
 export const useUpdateFound = () => {
@@ -96,7 +94,7 @@ export const useGetLocation = () =>{
 
     const run = useCallback(()=>{
         return request({
-            url: `/found/location`,
+            url: `/location`,
             method: 'GET'
         })
     },[request])
@@ -121,7 +119,20 @@ export const useGetMyposts = () =>{
 
     const run = useCallback((id)=>{
         return request({
-            url:`/user/mypage/content-info/${id}`
+            url:`/user/mypage/content-info/${id}`,
+            method: 'GET'
+        })
+    },[request])
+    return [run,response]
+}
+
+export const useGetBuildingPosts =()=> {
+    const [request,response]=useAxios();
+
+    const run = useCallback((buildingNum)=>{
+        return request({
+            url: `/location/${buildingNum}`,
+            method: 'GET'
         })
     },[request])
     return [run,response]

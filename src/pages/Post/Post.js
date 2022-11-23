@@ -76,10 +76,10 @@ export const Post = () => {
     <Layout>
       <Wrapper>
         <Container>
-          <ImageContainer src={data?.src} />
+          <ImageContainer src={data?.src.split('public')[1]} />
           <UserContainer>
             <img src={user_icon} alt="" />
-            <UserInfo>{`${data?.user?.studentNumber} ${data?.user?.name}`}</UserInfo>
+            <UserInfo>{`${data?.user?.name}`}</UserInfo>
             <UserInfo>{data?.location}</UserInfo>
           </UserContainer>
           <ContentContainer>

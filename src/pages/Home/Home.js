@@ -4,7 +4,6 @@ import styled from "styled-components"
 import { Layout } from "../../components/Layout/Layout"
 import { LostCard } from "../../components/LostCard/LostCard"
 import { useGetFound } from "../../hooks/api"
-import { dummy } from "./data"
 export const Home = () => {
     const [req,res] = useGetFound();
     useEffect(()=>{
@@ -15,7 +14,6 @@ export const Home = () => {
 
     useEffect(()=>{
         if(res.called && !res.loading && res.data){
-            console.log(res)
             const arr = []
             res.data.result.forEach((el)=>{
                 arr.push({
