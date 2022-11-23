@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Layout } from "../../components/Layout/Layout";
 import { theme } from "../../styles/theme";
-import { dummy } from "../Home/data";
 import user_icon from "../../components/Header/user_img.svg";
 import { timeMaker } from "../../utils/timeMaker";
 import { BasicButton } from "../../components/Button/BasicButton";
@@ -40,19 +39,16 @@ const comments = [
 export const Post = () => {
   const location = useLocation();
   const { id } = location.state;
-  const [data, setData] = useState({});
+  const [datas, setDatas] = useState({});
   const [req,res]=useGetFoundPost()
-
-  const getData = useCallback(() => {
-    setData(dummy.filter((el) => el.id === id)[0]);
-  }, [id]);
 
   useEffect(() => {
       req(id)
-  }, [getData, id, req]);
+  }, [id, req]);
   useEffect(() => {
     if (res.called && !res.loading && res.data) {
-      setData({
+      console.log(res)
+      setDatas({
         user: {
           name: res.data.result.userNickname,
         },
@@ -68,7 +64,7 @@ export const Post = () => {
         createdAt: res.data.result.date,
         totalView: res.data.result.hit,
         src: res.data.result.url
-      });
+    });
     }
   }, [res]);
 
@@ -76,29 +72,29 @@ export const Post = () => {
     <Layout>
       <Wrapper>
         <Container>
-          <ImageContainer src={data?.src.split('public')[1]} />
+          <ImageContainer src={(datas.src||'').split('public')[1]}/>
           <UserContainer>
             <img src={user_icon} alt="" />
-            <UserInfo>{`${data?.user?.name}`}</UserInfo>
-            <UserInfo>{data?.location}</UserInfo>
+            <UserInfo>{`${datas?.user?.name}`}</UserInfo>
+            <UserInfo>{datas?.location}</UserInfo>
           </UserContainer>
           <ContentContainer>
-            <Title>{data?.title}</Title>
+            <Title>{datas?.title}</Title>
             <Title2>
-              {data?.content?.kind} | {timeMaker(data?.createdAt)}
+              {datas?.content?.kind} | {timeMaker(datas?.createdAt)}
             </Title2>
             <div style={{ margin: "5px 0" }}>
-              발견장소 : {data?.content?.foundAddr}
+              발견장소 : {datas?.content?.foundAddr}
             </div>
             <div style={{ margin: "5px 0" }}>
-              보관장소 : {data?.content?.keepAddr}
+              보관장소 : {datas?.content?.keepAddr}
             </div>
-            <div style={{ margin: "5px 0" }}>종류 : {data?.content?.kind}</div>
+            <div style={{ margin: "5px 0" }}>종류 : {datas?.content?.kind}</div>
             <div style={{ margin: "5px 0" }}>
-              브랜드 : {data?.content?.brand}
+              브랜드 : {datas?.content?.brand}
             </div>
-            <div style={{ margin: "5px 0" }}>색상 : {data?.content?.color}</div>
-            <div style={{ margin: "5px 0" }}>{data?.content?.etc}</div>
+            <div style={{ margin: "5px 0" }}>색상 : {datas?.content?.color}</div>
+            <div style={{ margin: "5px 0" }}>{datas?.content?.etc}</div>
           </ContentContainer>
           <CommentInputContainer>
             <CommentInput placeholder="댓글을 입력하세요" />
@@ -129,7 +125,7 @@ const Container = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  background-image: url(${({ src }) => src});
+  background-image: url((${({ src }) => src}));
   width: 900px;
   height: 400px;
   background-size: contain;

@@ -15,7 +15,7 @@ export const LostCard = ({content}) => {
     
     return (
         <Container onClick={handleClick}>
-            <Image src={content?.src.split('public/')[1]}/>
+            <Image src={content?.src.split('public')[1]}/>
             <Title>{content?.title}</Title>
             <Number>
                 <Location>{content?.location}</Location>

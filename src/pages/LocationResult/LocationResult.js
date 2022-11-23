@@ -13,6 +13,11 @@ export const LocationResult =()=>{
             id: content?.id
         }})
     }, [navigate])
+    const handleLocation2 = useCallback((content) => {
+        navigate(`/post/${content?.id}`, {state: {
+            id: content?.id
+        }})
+    }, [navigate])
     const state = useLocation()
     const [locationlostpost,setLocationlostpost]=useState([])
     const [locationfoundpost,setLocationfoundpost]=useState([])
@@ -64,7 +69,7 @@ export const LocationResult =()=>{
                     </TableContainer>
                     <TableContainer>
                         <PostType>찾아가세요</PostType>
-                        <LocationFoundTable posts={locationfoundpost} handleOnClick={handleLocation}></LocationFoundTable>
+                        <LocationFoundTable posts={locationfoundpost} handleOnClick={handleLocation2}></LocationFoundTable>
                     </TableContainer>
                 </Container>
             </Wrapper>

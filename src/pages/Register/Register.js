@@ -79,7 +79,7 @@ export const Register = () => {
               <option value="S동">S동</option>
             </SelectBox>
             <TextField
-              placeholder="발견장소 상세"
+              placeholder="브랜드"
               value={values.lost_detail}
               name="lost_detail"
               onChange={handleChange}
@@ -104,7 +104,7 @@ export const Register = () => {
               <option value="S동">S동</option>
             </SelectBox>
             <TextField
-              placeholder="보관 장소 상세"
+              placeholder="색상"
               value={values.store_detail}
               name="store_detail"
               onChange={handleChange}

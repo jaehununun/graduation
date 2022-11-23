@@ -25,6 +25,11 @@ export const Mypost =()=>{
             id: content?.id
         }})
     }, [navigate])
+    const handleLocation2 = useCallback((content)=>{
+        navigate(`/post/${content?.id}`,{state:{
+            id: content?.id
+        }})
+    },[navigate])
     const userId=useRecoilValue(tokenState);
     const [req,res]=useGetMyposts(userId);
     const [mylostpost,setMylostpost]=useState([])
@@ -71,7 +76,7 @@ export const Mypost =()=>{
                     </InfoNavContainer>
                     <PostContainer>
                         <MyHome>찾아가세요</MyHome>
-                        <MyfoundTable posts={myfoundpost} handleOnClick={handleLocation}></MyfoundTable>
+                        <MyfoundTable posts={myfoundpost} handleOnClick={handleLocation2}></MyfoundTable>
                     </PostContainer>
                     <PostContainer>
                         <MyHome>찾아주세요</MyHome>
