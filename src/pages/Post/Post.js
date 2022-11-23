@@ -47,24 +47,24 @@ export const Post = () => {
   }, [id, req]);
   useEffect(() => {
     if (res.called && !res.loading && res.data) {
-      console.log(res)
-      setDatas({
-        user: {
-          name: res.data.result.userNickname,
-        },
-        content:{
-          foundAddr: res.data.result.lost_location,
-          keepAddr:res.data.result.store_location,
-          kind:res.data.result.category,
-          brand:res.data.result.lost_detail,
-          color:res.data.result.store_detail,
-          etc:res.data.result.content
-        },
-        title: res.data.result.title,
-        createdAt: res.data.result.date,
-        totalView: res.data.result.hit,
-        src: res.data.result.url
-    });
+        console.log(res)
+        setDatas({
+          user: {
+            name: res.data.result.userNickname,
+          },
+          content:{
+            foundAddr: res.data.result.lost_location,
+            keepAddr:res.data.result.store_location,
+            kind:res.data.result.category,
+            brand:res.data.result.lost_detail,
+            color:res.data.result.store_detail,
+            etc:res.data.result.content
+          },
+          title: res.data.result.title,
+          createdAt: res.data.result.date,
+          totalView: res.data.result.hit,
+          src: res.data.result.url
+      });
     }
   }, [res]);
 
@@ -124,8 +124,8 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const ImageContainer = styled.div`
-  background-image: url((${({ src }) => src}));
+const ImageContainer = styled.img`
+  /* background-image: url((${({ src }) => src})); */
   width: 900px;
   height: 400px;
   background-size: contain;
